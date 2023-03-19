@@ -1,10 +1,28 @@
+use std::{collections::HashSet};
+
 fn unique(a: Vec<i32>) -> Vec<i32> {
-    todo!()
+    if a.len() < 2 {return a}
+    let mut set: HashSet<i32> = HashSet::new();
+    a.iter()
+        .filter(|&num| set.insert(*num))
+        .copied()
+        .collect()
 }
 
-// advanced 1: use generic types
-// fn unique(a: Vec<T>) -> Vec<T> {
-//     todo!();
+// fn unique1<T>(a: Vec<T>) -> Vec<T>
+// where T: Ord + Copy {
+//     if a.len() < 2 {return a;}
+
+//     let mut res: Vec<T> = vec![];
+    
+//     for i in 0..a.len() {
+//         if !res.contains(&a[i]) {
+//             res.push(a[i]);
+//         } else {
+//             continue;
+//         }
+//     }
+//     res
 // }
 
 // advanced 2: keep items in order
