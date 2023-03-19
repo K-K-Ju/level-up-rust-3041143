@@ -17,10 +17,21 @@ where T: Ord + Clone{
     a_clone
 }
 
-// advanced 2: keep items in order
-// fn unique(a: Iterable<T>) -> Vec<T> {
-//     todo!();
-// }
+fn not_sorted_unique<T>(a: Vec<T>) -> Vec<T> 
+where T: Ord + Copy{
+    if a.len() < 2 {return a;}
+
+    let mut res: Vec<T> = vec![];
+    
+    for i in 0..a.len() {
+        if !res.contains(&a[i]) {
+            res.push(a[i]);
+        } else {
+            continue;
+        }
+    }
+    res
+}
 
 // advanced 3: use iterators
 // fn unique(a: Iterable<T>) -> Vec<T> {
