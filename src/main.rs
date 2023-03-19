@@ -9,21 +9,21 @@ fn unique(a: Vec<i32>) -> Vec<i32> {
         .collect()
 }
 
-// fn unique1<T>(a: Vec<T>) -> Vec<T>
-// where T: Ord + Copy {
-//     if a.len() < 2 {return a;}
+fn gen_unique<T>(a: Vec<T>) -> Vec<T>
+where T: Ord + Copy {
+    if a.len() < 2 {return a;}
 
-//     let mut res: Vec<T> = vec![];
+    let mut res: Vec<T> = vec![];
     
-//     for i in 0..a.len() {
-//         if !res.contains(&a[i]) {
-//             res.push(a[i]);
-//         } else {
-//             continue;
-//         }
-//     }
-//     res
-// }
+    for i in 0..a.len() {
+        if !res.contains(&a[i]) {
+            res.push(a[i]);
+        } else {
+            continue;
+        }
+    }
+    res
+}
 
 // advanced 2: keep items in order
 // fn unique(a: Iterable<T>) -> Vec<T> {
@@ -37,7 +37,7 @@ fn unique(a: Vec<i32>) -> Vec<i32> {
 
 fn main() {
     let input = vec![2, 1, 1];
-    let answer = unique(input);
+    let answer = gen_unique(input);
     println!("unique items -> {:?}", answer)
 }
 
