@@ -10,19 +10,11 @@ fn unique(a: Vec<i32>) -> Vec<i32> {
 }
 
 fn gen_unique<T>(a: Vec<T>) -> Vec<T>
-where T: Ord + Copy {
-    if a.len() < 2 {return a;}
-
-    let mut res: Vec<T> = vec![];
-    
-    for i in 0..a.len() {
-        if !res.contains(&a[i]) {
-            res.push(a[i]);
-        } else {
-            continue;
-        }
-    }
-    res
+where T: Ord + Clone{
+    let mut a_clone = a.clone();
+    a_clone.sort();
+    a_clone.dedup();
+    a_clone
 }
 
 // advanced 2: keep items in order
