@@ -32,8 +32,31 @@ impl Hand {
     }
 
     fn value(&self) -> usize {
-        // TODO: implement this method
-        0 
+        fn get_ace_val(x: usize) -> usize {
+            if x < 20 {11} else {1}
+        }
+        
+        use Card::*;
+
+        let mut sum: usize = 0;
+        self.cards.iter()
+            .for_each(|card| {
+                match card {
+                    King | Queen | Jack => sum += 10,
+                    Two => sum += 2,
+                    Three => sum += 3,
+                    Four => sum += 4,
+                    Five => sum += 5,
+                    Six => sum += 6,
+                    Seven => sum += 7,
+                    Eight => sum += 8,
+                    Nine => sum += 9,
+                    _ => sum += get_ace_val(sum)
+                }
+            }
+        );
+
+        sum
     }
 
     fn is_loosing_hand(&self) -> bool {
@@ -44,7 +67,9 @@ impl Hand {
 fn main() {
     let mut hand = Hand::new();
     hand.add(Card::King);
+    hand.add(Card::Queen);
     hand.add(Card::Ace);
+    println!("{}",hand.value());
 }
 
 
