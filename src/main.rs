@@ -41,18 +41,19 @@ impl Hand {
         let mut sum: usize = 0;
         self.cards.iter()
             .for_each(|card| {
-                match card {
-                    King | Queen | Jack => sum += 10,
-                    Two => sum += 2,
-                    Three => sum += 3,
-                    Four => sum += 4,
-                    Five => sum += 5,
-                    Six => sum += 6,
-                    Seven => sum += 7,
-                    Eight => sum += 8,
-                    Nine => sum += 9,
-                    _ => sum += get_ace_val(sum)
-                }
+                let value = match card {
+                    King | Queen | Jack => 10,
+                    Two => 2,
+                    Three => 3,
+                    Four => 4,
+                    Five => 5,
+                    Six => 6,
+                    Seven => 7,
+                    Eight => 8,
+                    Nine => 9,
+                    Ace => get_ace_val(sum)
+                };
+                sum += value;
             }
         );
 
