@@ -1,4 +1,4 @@
-use std::{collections::HashSet};
+use std::{collections::HashSet, hash::Hash};
 
 fn unique(a: Vec<i32>) -> Vec<i32> {
     if a.len() < 2 {return a}
@@ -33,14 +33,16 @@ where T: Ord + Copy{
     res
 }
 
-// advanced 3: use iterators
-// fn unique(a: Iterable<T>) -> Vec<T> {
-//     todo!();
-// }
+fn unique_from_iterator<T>(mut a: Vec<T>) -> Vec<T>
+where T: Ord + Hash {
+    let set: HashSet<_> = a.drain(..).collect();
+    a.extend(set.into_iter());
+    a
+}
 
 fn main() {
     let input = vec![2, 1, 1];
-    let answer = gen_unique(input);
+    let answer = unique_from_iterator(input);
     println!("unique items -> {:?}", answer)
 }
 
