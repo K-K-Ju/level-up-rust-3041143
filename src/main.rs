@@ -9,12 +9,21 @@ trait FileMetadata {
 }
 
 impl FileMetadata for path::Path {
+
     fn is_readable(&self) -> bool {
-        todo!();
+        match self.read_dir() {
+            Ok(_) => true,
+            Err(_) => false
+        }
+
     }
 
     fn is_writeable(&self) -> bool {
-        todo!();
+        use std::fs;
+        match fs::write(self.to_str().unwrap(), "") {
+            Ok(_) => true,
+            Err(_) => false
+        }
     }
 
     fn exists(&self) -> bool {
@@ -47,6 +56,8 @@ fn read_only() {
     perms.set_readonly(true);
     fs::set_permissions(f.path(), perms).unwrap();
     assert_eq!(f.path().is_writeable(), false);
-
+    let mut perms = fs::metadata(f.path()).unwrap().permissions();
+    perms.set_readonly(false);
+    fs::set_permissions(f.path(), perms).unwrap();
     fs::remove_file(f.path()).unwrap();
 }
