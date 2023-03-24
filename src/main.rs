@@ -1,4 +1,7 @@
 mod vigenere {
+    const A: u8 = b'A'; 
+    const a: u8 = b'a'; 
+    const ALPHA_LEN: u8 = 26;
 
     fn clean_input(input: &str) -> String {
         input.chars()
@@ -21,10 +24,10 @@ mod vigenere {
             .chars()
             .map(|ch| {
                 if ch.is_ascii_alphabetic() {
-                    let first = if ch.is_ascii_lowercase() { b'a' } else { b'A' };
-                    let shift = key_iter.next().unwrap() - b'a';
+                    let first = if ch.is_ascii_lowercase() { a } else { A };
+                    let shift = key_iter.next().unwrap() - a;
 
-                    (first + (ch as u8 + shift - first) % 26) as char
+                    (first + (ch as u8 + shift - first) % ALPHA_LEN) as char
                 } else {
                     ch
                 }
@@ -46,11 +49,11 @@ mod vigenere {
             .chars()
             .map(|ch| {
                 if ch.is_ascii_alphabetic() {
-                    let first = if ch.is_ascii_lowercase() { b'a' } else { b'A' };
+                    let first = if ch.is_ascii_lowercase() { a } else { A };
                     let mut shift = (ch as i16) - (key_iter.next().unwrap() as i16);
-                    if shift < 0 {shift += 26;}
+                    if shift < 0 {shift += ALPHA_LEN as i16;}
 
-                    (first + (shift as u8) % 26) as char
+                    (first + (shift as u8) % ALPHA_LEN) as char
                 } else {
                     ch
                 }
