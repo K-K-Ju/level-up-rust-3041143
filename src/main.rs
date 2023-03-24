@@ -13,15 +13,16 @@ mod vigenere {
         let key_len = key.len();
         if key_len == 0 {return String::from(plain_text);}
 
-        let mut index = 0;
+        let mut key_iter = key.chars()
+            .map(|ch| ch as u8)
+            .cycle();
 
         plain_text
             .chars()
             .map(|ch| {
                 if ch.is_ascii_alphabetic() {
                     let first = if ch.is_ascii_lowercase() { b'a' } else { b'A' };
-                    let shift = key.as_bytes()[index % key_len] - b'a';
-                    index += 1;
+                    let shift = key_iter.next().unwrap() - b'a';
 
                     (first + (ch as u8 + shift - first) % 26) as char
                 } else {
@@ -37,16 +38,17 @@ mod vigenere {
         let key_len = key.len();
         if key_len == 0 {return String::from(ciphertext);}
 
-        let mut index = 0;
+        let mut key_iter = key.chars()
+            .map(|ch| ch as u8)
+            .cycle();
 
         ciphertext
             .chars()
             .map(|ch| {
                 if ch.is_ascii_alphabetic() {
                     let first = if ch.is_ascii_lowercase() { b'a' } else { b'A' };
-                    let mut shift = (ch as i16) - (key.as_bytes()[index % key_len] as i16);
+                    let mut shift = (ch as i16) - (key_iter.next().unwrap() as i16);
                     if shift < 0 {shift += 26;}
-                    index += 1;
 
                     (first + (shift as u8) % 26) as char
                 } else {
