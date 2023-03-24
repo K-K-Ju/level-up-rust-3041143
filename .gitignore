@@ -1,5 +1,6 @@
 .DS_Store
 .tmp
+.vscode
 
 # js
 node_modules
